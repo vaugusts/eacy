@@ -1,0 +1,23 @@
+{
+  "update_id": 1001,
+  "message": {
+    "message_id": 501,
+    "date": 1760000000,
+    "chat": {
+      "id": 9001001,
+      "type": "private"
+    },
+    "from": {
+      "id": 9001001,
+      "is_bot": false,
+      "first_name": "Test"
+    },
+    "voice": {
+      "file_id": "voice-file-123",
+      "file_unique_id": "voice-uniq-123",
+      "duration": 21,
+      "mime_type": "audio/ogg",
+      "file_size": 42000
+    }
+  }
+}

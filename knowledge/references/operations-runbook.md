@@ -52,3 +52,16 @@ command_refs:
 - Validate every imported asset record against
   `schemas/asset-index.schema.json`.
 - Keep linked notes repo-relative so the asset index remains durable under git.
+
+## Telegram Landing Sync Scaffold
+
+- Inspect pending Telegram landing manifests under
+  `knowledge/manifests/telegram/`.
+- Use `apps.workers.drive_sync.enumerate_sync_candidates()` to list sync
+  candidates and their decisions (`ready`, `pending`, `blocked`).
+- Treat `sync.import_state=ready` with `sync.ready_for_import=true` as safe
+  candidates for future normalization import jobs.
+- Treat `sync.import_state=blocked` as reconciliation-required; resolve
+  `sync.block_reason` and `reconciliation.recovery_hint` before import.
+- Keep import decisions repo-native by updating manifests rather than relying on
+  hidden runtime state.

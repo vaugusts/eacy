@@ -1,0 +1,12 @@
+{
+  "update_id": 1002,
+  "message": {
+    "message_id": 502,
+    "date": 1760000005,
+    "chat": {
+      "id": 9001001,
+      "type": "private"
+    },
+    "text": "hello from telegram"
+  }
+}

@@ -2,65 +2,76 @@
 
 ## Goal
 
-Validate that the Telegram note-input feature package contains the planning and
-contract artifacts needed before implementation begins.
+Run and validate the Telegram note-input path with repo-native artifacts,
+contracts, schemas, and tests.
 
-## 1. Review the Feature Spec and Plan
+## 1. Configure Telegram + Drive Environment
 
-Open:
-
-- `/specs/002-telegram-note-input-drive-landing/spec.md`
-- `/specs/002-telegram-note-input-drive-landing/plan.md`
-
-Expected outcome: the feature scope, structure, constitution alignment, and
-technical approach are clear before any code changes start.
-
-## 2. Inspect the Planning Artifact Bundle
-
-From the repo root:
+Set required local environment variables before running webhook flows:
 
 ```bash
-find specs/002-telegram-note-input-drive-landing -maxdepth 2 -type f | sort
+export TELEGRAM_BOT_TOKEN="<bot-token>"
+export TELEGRAM_WEBHOOK_SECRET="<secret-token>"
+export GOOGLE_DRIVE_FOLDER_ID="<drive-folder-id>"
+export GOOGLE_OAUTH_CLIENT_SECRET_FILE="<path-to-client-secret.json>"
+export GOOGLE_OAUTH_TOKEN_FILE="<path-to-user-token.json>"
 ```
 
-Expected outcome: `spec.md`, `plan.md`, `research.md`, `data-model.md`,
-`quickstart.md`, and `contracts/` are present.
+Expected outcome: bot/webhook auth and Drive OAuth inputs are available.
 
-## 3. Review Existing Repo Boundaries the Feature Will Extend
-
-Open:
-
-- `/apps/voice_gateway/combined_mode.py`
-- `/apps/router/note_writer.py`
-- `/apps/workers/asset_indexer.py`
-- `/schemas/note.schema.json`
-
-Expected outcome: the feature extends the current `apps/`, `workers/`,
-`schemas/`, and `knowledge/` conventions instead of creating a parallel runtime
-or KMS structure.
-
-## 4. Inspect the Feature Contracts
+## 2. Validate Repo-Native Foundations
 
 ```bash
-find specs/002-telegram-note-input-drive-landing/contracts -maxdepth 1 -type f | sort
+python3 -m json.tool schemas/telegram-update.schema.json >/dev/null
+python3 -m json.tool schemas/telegram-intake-envelope.schema.json >/dev/null
+python3 -m json.tool schemas/landing-note.schema.json >/dev/null
+python3 -m json.tool schemas/landing-manifest.schema.json >/dev/null
+python3 -m pytest tests/contract/test_telegram_input_contracts.py
 ```
 
-Expected outcome: Telegram intake, landing manifest, and sync candidate
-contracts are visible as versioned design artifacts.
+Expected outcome: Telegram intake schemas and contracts parse and validate.
 
-## 5. Verify the Locked Design Decisions
+## 3. Run Telegram Intake MVP Tests
 
 ```bash
-rg -n "OAuth user-token|partial-success|idempotent|landing-note schema|sync_state" \
-  specs/002-telegram-note-input-drive-landing/*.md \
-  specs/002-telegram-note-input-drive-landing/contracts/*.yaml
+python3 -m pytest \
+  tests/unit/test_telegram_adapter.py \
+  tests/unit/test_transcription_adapter.py \
+  tests/unit/test_google_drive_adapter.py \
+  tests/unit/test_landing_record_writer.py \
+  tests/integration/test_telegram_note_input.py
 ```
 
-Expected outcome: the feature artifacts explicitly capture OAuth user-token
-Drive auth, retry idempotency, partial-success reconciliation, dedicated landing
-schema usage, and sync-state handling.
+Expected outcome: success-path webhook ingestion and landing artifacts pass.
 
-## 6. Continue with Tasks
+## 4. Run Retry + Reconciliation Tests
 
-Generate `/specs/002-telegram-note-input-drive-landing/tasks.md` from this
-artifact set before implementation begins.
+```bash
+python3 -m pytest \
+  tests/unit/test_landing_manifest_writer.py \
+  tests/integration/test_telegram_note_retries.py \
+  tests/integration/test_telegram_partial_failures.py
+```
+
+Expected outcome: duplicate retries are idempotent and partial failures persist
+reconciliation metadata.
+
+## 5. Run Sync Scaffold Tests
+
+```bash
+python3 -m pytest \
+  tests/unit/test_drive_sync.py \
+  tests/integration/test_drive_sync_scaffold.py
+```
+
+Expected outcome: sync candidate enumeration and pending-import scanning are
+operational.
+
+## 6. Final Repository Verification
+
+```bash
+python3 -m pytest
+ruff check .
+```
+
+Expected outcome: repository-wide validation passes before merge.

@@ -1,0 +1,20 @@
+version: 1
+integration: openai
+contract_id: openai-telegram-transcription-v1
+operation: audio.transcribe
+request:
+  fields:
+    audio_bytes: binary
+    mime_type: string
+    language_hint: string
+    model: string
+response:
+  success:
+    transcript_text: string
+    duration_seconds: number
+    provider_request_id: string
+  error:
+    error_type: string
+    retryable: boolean
+notes:
+  - OpenAI is used as a transcription backend only for Telegram ingress.

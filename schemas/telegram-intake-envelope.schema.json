@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/telegram-intake-envelope.schema.json",
+  "title": "TelegramIntakeEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope_id",
+    "update_id",
+    "message_id",
+    "message_kind",
+    "telegram_file_id",
+    "received_at",
+    "source"
+  ],
+  "properties": {
+    "envelope_id": {"type": "string", "minLength": 1},
+    "update_id": {"type": "integer"},
+    "message_id": {"type": "integer"},
+    "message_kind": {"type": "string", "enum": ["voice", "audio"]},
+    "telegram_file_id": {"type": "string", "minLength": 1},
+    "telegram_file_unique_id": {"type": "string"},
+    "mime_type": {"type": "string"},
+    "duration_seconds": {"type": "integer", "minimum": 0},
+    "received_at": {"type": "string", "format": "date-time"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "chat_id"],
+      "properties": {
+        "provider": {"type": "string", "const": "telegram"},
+        "chat_id": {"type": "string"},
+        "user_id": {"type": "string"},
+        "username": {"type": "string"}
+      }
+    }
+  }
+}

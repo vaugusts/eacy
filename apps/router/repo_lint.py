@@ -19,6 +19,16 @@ REQUIRED_PATHS = [
     Path("knowledge/assets/index.md"),
     Path("prompts/system/note-curation.md"),
     Path("deploy/targets.yaml"),
+    Path("schemas/telegram-update.schema.json"),
+    Path("schemas/telegram-intake-envelope.schema.json"),
+    Path("schemas/landing-note.schema.json"),
+    Path("schemas/landing-manifest.schema.json"),
+    Path("integrations/telegram/note-input-webhook.contract.yaml"),
+    Path("integrations/openai/transcription.contract.yaml"),
+    Path("integrations/google-drive/telegram-landing.contract.yaml"),
+    Path("templates/notes/telegram-landing.md"),
+    Path("knowledge/sources/telegram/README.md"),
+    Path("knowledge/manifests/telegram/README.md"),
 ]
 
 

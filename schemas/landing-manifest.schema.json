@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/landing-manifest.schema.json",
+  "title": "TelegramLandingManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version",
+    "landing_id",
+    "envelope_id",
+    "status",
+    "retry_count",
+    "reconciliation",
+    "created_at",
+    "updated_at",
+    "sync"
+  ],
+  "properties": {
+    "manifest_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "landing_id": {
+      "type": "string"
+    },
+    "envelope_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "landed",
+        "partial",
+        "failed",
+        "reconciled"
+      ]
+    },
+    "retry_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reconciliation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "needs_recovery",
+        "recovery_hint",
+        "drive_write_succeeded",
+        "repo_write_succeeded"
+      ],
+      "properties": {
+        "needs_recovery": {
+          "type": "boolean"
+        },
+        "recovery_hint": {
+          "type": "string"
+        },
+        "drive_write_succeeded": {
+          "type": "boolean"
+        },
+        "repo_write_succeeded": {
+          "type": "boolean"
+        }
+      }
+    },
+    "drive": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "markdown_file_id": {
+          "type": "string"
+        },
+        "audio_file_id": {
+          "type": "string"
+        },
+        "folder_id": {
+          "type": "string"
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sync": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "import_state"
+      ],
+      "properties": {
+        "import_state": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "ready",
+            "blocked",
+            "imported"
+          ]
+        },
+        "block_reason": {
+          "type": "string"
+        },
+        "last_checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ready_for_import": {
+          "type": "boolean"
+        },
+        "readiness_reason": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
