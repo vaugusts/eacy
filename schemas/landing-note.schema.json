@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/landing-note.schema.json",
+  "title": "TelegramLandingNoteFrontmatter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "note_type",
+    "status",
+    "landing_id",
+    "source_provider",
+    "source_update_id",
+    "drive_markdown_file_id",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "note_type": {"type": "string", "const": "telegram_landing"},
+    "status": {"type": "string", "enum": ["landed", "partial", "failed", "reconciled"]},
+    "landing_id": {"type": "string"},
+    "source_provider": {"type": "string", "const": "telegram"},
+    "source_update_id": {"type": "integer"},
+    "source_message_id": {"type": "integer"},
+    "drive_markdown_file_id": {"type": "string"},
+    "drive_audio_file_id": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    }
+  }
+}

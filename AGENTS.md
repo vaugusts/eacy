@@ -3,6 +3,9 @@
 Auto-generated from all feature plans. Last updated: 2026-04-09
 
 ## Active Technologies
+- FastAPI webhook runtime, httpx, OpenAI Python SDK, google-api-python-client,
+  google-auth, and google-auth-oauthlib for Telegram and Google Drive intake
+  flows (`002-telegram-note-input-drive-landing`)
 
 - Python 3.12 for runtime tooling
 - Markdown, YAML, and JSON for durable system definitions
@@ -45,6 +48,10 @@ small focused Python modules, Markdown with structured frontmatter, and
 deterministic execution rules over free-form automation.
 
 ## Recent Changes
+- `002-telegram-note-input-drive-landing`: added the Telegram input planning
+  package, including the feature spec, implementation plan, research notes,
+  data model, quickstart, and initial contracts for webhook intake, landing
+  manifests, and future Drive sync.
 
 - `001-voice-kms-automation`: added the initial constitution, architecture,
   spec-driven feature package, schemas, registry, policy files, note templates,

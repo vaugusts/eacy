@@ -1,0 +1,62 @@
+openapi: 3.1.0
+info:
+  title: EACY Telegram Drive Sync Candidate Contract
+  version: 1.0.0
+components:
+  schemas:
+    SyncCandidate:
+      type: object
+      required:
+        - note_id
+        - manifest_path
+        - drive_markdown_ref
+        - sync_state
+        - ready_for_import
+      properties:
+        note_id:
+          type: string
+        manifest_path:
+          type: string
+        drive_markdown_ref:
+          $ref: "#/components/schemas/DriveUploadReference"
+        sync_state:
+          type: string
+          enum: [pending_import, imported, skipped, failed, requires_reconciliation]
+        ready_for_import:
+          type: boolean
+        blocker_reason:
+          type: string
+        target_kms_path:
+          type: string
+    SyncDecision:
+      type: object
+      required:
+        - note_id
+        - action
+      properties:
+        note_id:
+          type: string
+        action:
+          type: string
+          enum: [import, skip, block_reconcile]
+        reason:
+          type: string
+        next_sync_state:
+          type: string
+    DriveUploadReference:
+      type: object
+      required:
+        - storage_system
+        - file_id
+        - name
+        - web_view_url
+      properties:
+        storage_system:
+          type: string
+          enum: [google_drive]
+        file_id:
+          type: string
+        name:
+          type: string
+        web_view_url:
+          type: string

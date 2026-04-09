@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: EACY Telegram Landing Manifest Contract
+  version: 1.0.0
+components:
+  schemas:
+    DriveUploadReference:
+      type: object
+      required:
+        - storage_system
+        - file_id
+        - folder_id
+        - name
+        - mime_type
+        - web_view_url
+        - uploaded_at
+      properties:
+        storage_system:
+          type: string
+          enum: [google_drive]
+        file_id:
+          type: string
+        folder_id:
+          type: string
+        name:
+          type: string
+        mime_type:
+          type: string
+        web_view_url:
+          type: string
+        download_url:
+          type: string
+        uploaded_at:
+          type: string
+          format: date-time
+        checksum:
+          type: string
+    RepoLandingRecordFrontmatter:
+      type: object
+      required:
+        - note_id
+        - title
+        - status
+        - created_at
+        - updated_at
+        - manifest_ref
+      properties:
+        note_id:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          enum: [received, landed, partial, reconciled, imported, failed]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        manifest_ref:
+          type: string
+        drive_markdown_ref:
+          $ref: "#/components/schemas/DriveUploadReference"
+        drive_audio_ref:
+          oneOf:
+            - $ref: "#/components/schemas/DriveUploadReference"
+            - type: "null"
+        telegram_source_ref:
+          type: string
+    LandingManifest:
+      type: object
+      required:
+        - note_id
+        - intake_id
+        - correlation_id
+        - telegram_update_id
+        - telegram_message_id
+        - processing_status
+        - sync_state
+        - drive_markdown_ref
+        - landing_record_path
+      properties:
+        note_id:
+          type: string
+        intake_id:
+          type: string
+        correlation_id:
+          type: string
+        telegram_update_id:
+          type: integer
+        telegram_message_id:
+          type: integer
+        telegram_file_unique_id:
+          type: string
+        processing_status:
+          type: string
+          enum:
+            - received
+            - downloaded
+            - transcribed
+            - uploaded_markdown
+            - landed
+            - partial
+            - failed
+            - reconciled
+        sync_state:
+          type: string
+          enum: [pending_import, imported, skipped, failed, requires_reconciliation]
+        drive_markdown_ref:
+          $ref: "#/components/schemas/DriveUploadReference"
+        drive_audio_ref:
+          oneOf:
+            - $ref: "#/components/schemas/DriveUploadReference"
+            - type: "null"
+        landing_record_path:
+          type: string
+        error_context:
+          type: object
+        retry_count:
+          type: integer
+        last_attempted_at:
+          type: string
+          format: date-time
+    LandingResult:
+      type: object
+      required:
+        - note_id
+        - outcome
+        - processing_status
+        - sync_state
+      properties:
+        note_id:
+          type: string
+        outcome:
+          type: string
+          enum: [completed, partial, failed, duplicate]
+        processing_status:
+          type: string
+        sync_state:
+          type: string
+        landing_record_path:
+          type: string
+        manifest_path:
+          type: string
+        reconciliation_hint:
+          type: string

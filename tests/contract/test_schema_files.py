@@ -13,6 +13,10 @@ class SchemaFileTests(unittest.TestCase):
             "schemas/command-registry.schema.json",
             "schemas/policy-rule.schema.json",
             "schemas/audit-entry.schema.json",
+            "schemas/telegram-update.schema.json",
+            "schemas/telegram-intake-envelope.schema.json",
+            "schemas/landing-note.schema.json",
+            "schemas/landing-manifest.schema.json",
         ]
 
         for relative_path in expected:
@@ -39,6 +43,18 @@ class SchemaFileTests(unittest.TestCase):
 
         for field in ["actor", "intent", "approved_command", "target", "outcome", "repo_revision"]:
             self.assertIn(field, required)
+
+    def test_telegram_intake_and_landing_schemas_require_core_fields(self) -> None:
+        envelope_schema = load_json_schema(ROOT / "schemas/telegram-intake-envelope.schema.json")
+        landing_note_schema = load_json_schema(ROOT / "schemas/landing-note.schema.json")
+        landing_manifest_schema = load_json_schema(ROOT / "schemas/landing-manifest.schema.json")
+
+        self.assertIn("envelope_id", envelope_schema["required"])
+        self.assertIn("telegram_file_id", envelope_schema["properties"])
+        self.assertIn("landing_id", landing_note_schema["required"])
+        self.assertIn("drive_markdown_file_id", landing_note_schema["required"])
+        self.assertIn("sync", landing_manifest_schema["required"])
+        self.assertIn("status", landing_manifest_schema["required"])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,28 @@
+version: 1
+integration: google_drive
+contract_id: drive-telegram-landing-v1
+auth:
+  mode: oauth_user_token
+operations:
+  upload_markdown:
+    required: true
+    output:
+      file_id: string
+      web_view_link: string
+  upload_audio:
+    required: false
+    output:
+      file_id: string
+      web_view_link: string
+request:
+  fields:
+    folder_id: string
+    markdown_content: string
+    markdown_filename: string
+    audio_bytes: binary
+    audio_filename: string
+response:
+  success_status: partial_or_full
+  metadata:
+    upload_state: string
+    recovery_hints: array

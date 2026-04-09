@@ -1,22 +1,12 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 -> 1.1.0
+- Version change: 1.1.0 -> 1.2.0
 - Modified principles:
-  - I. Repository-Native Backbone (linked exception clause to Governance process)
-  - IV. Governed Voice-to-Action (clarified normalization pipeline)
-  - V. Policy-Gated Execution and Audit (extended to AI agent-initiated actions)
-  - VI. Spec-Driven Incremental Evolution (added scope heuristic)
-  - Added principle -> VII. AI Agent Authorization and Oversight
+  - III. Markdown-First Curated Knowledge (clarified ingress-stage external Markdown allowance)
 - Modified sections:
-  - System Boundaries (removed Google Drive specificity; generalized to external file stores)
-  - Governance (added conflict resolution, exception approval process, compliance enforcement mechanism)
-- Templates requiring updates:
-  - ✅ synced /Users/leo/Sources/Personal/eacy/.specify/templates/spec-template.md
-  - ✅ synced /Users/leo/Sources/Personal/eacy/.specify/templates/plan-template.md
-  - ✅ synced /Users/leo/Sources/Personal/eacy/.specify/templates/tasks-template.md
-- Follow-up TODOs:
-  - Create .github/pull_request_template.md with constitution compliance checklist
-  - Create policies/exceptions/ directory and log
+  - System Boundaries (allowed ingress-stage external Markdown landing artifacts under repo-controlled reconciliation)
+  - Delivery Workflow and Quality Gates (added reconciliation and failure-mode requirements for external Markdown landing flows)
+- Templates requiring updates: none
 -->
 # EACY Constitution
 
@@ -42,8 +32,11 @@ and audit records MUST be treated as non-compliant.
 Human-readable knowledge MUST live primarily as Markdown with consistent
 frontmatter, relationship links, and provenance. The system MUST distinguish raw
 capture from curated knowledge, support inbox and temporal aggregation flows,
-and preserve traceability back to source assets or transcripts. Raw transcripts
-alone do not satisfy this principle.
+and preserve traceability back to source assets or transcripts. Ingress-stage
+Markdown landing artifacts MAY temporarily reside in approved external stores
+when the repository retains manifests, provenance, sync state, and import
+contracts needed to reconcile those artifacts into the long-term KMS. Raw
+transcripts alone do not satisfy this principle.
 
 ### IV. Governed Voice-to-Action
 Voice operation MUST explicitly support capture mode, command mode, and combined
@@ -84,9 +77,13 @@ command registry, policy layer, prompt library, workflow definitions, tests,
 documentation, and deployment assets. Runtime components such as the voice
 gateway, command router, local workers, and GitHub Actions runners MAY execute
 outside the repo, but their behavior MUST be defined by repo-native contracts.
-External file stores are reserved for non-Markdown assets and binary content
-that cannot practically be versioned here; the repo MUST retain indexes,
-metadata, summaries, and references for those assets.
+External file stores are reserved primarily for non-Markdown assets and binary
+content that cannot practically be versioned here. Exception: ingress-stage
+Markdown landing artifacts MAY be stored in approved external systems when that
+improves capture reliability or mobility, provided the repository remains the
+durable control plane through versioned contracts, manifests or indexes, sync
+state, and reproducible import logic. Curated and normalized knowledge MUST
+remain repo-native.
 
 ## Delivery Workflow and Quality Gates
 
@@ -95,8 +92,10 @@ when interfaces change, and verification steps before implementation is claimed
 complete. Changes that affect execution safety MUST update the command registry,
 policy definitions, and audit expectations together. Cross-system integrations
 MUST ship with documented contracts, failure modes, and local or CI validation
-steps. Repo structure changes MUST preserve clear boundaries between knowledge,
-automation, governance, integrations, and runtime code.
+steps. External Markdown landing flows MUST additionally define reconciliation
+ownership, idempotent sync semantics, and failure recovery expectations. Repo
+structure changes MUST preserve clear boundaries between knowledge, automation,
+governance, integrations, and runtime code.
 
 ## Governance
 
@@ -117,4 +116,4 @@ Exceptions to any principle require documented approval recorded as a dated
 entry in `policies/exceptions/` with rationale, scope, and a scheduled review
 date. Exceptions lapse if not renewed at their review date.
 
-**Version**: 1.1.0 | **Ratified**: 2026-04-09 | **Last Amended**: 2026-04-09
+**Version**: 1.2.0 | **Ratified**: 2026-04-09 | **Last Amended**: 2026-04-09
