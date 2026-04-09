@@ -11,10 +11,10 @@
 
 **Purpose**: Create the directories, placeholders, and fixtures needed to implement the Telegram intake feature without introducing a parallel repo structure.
 
-- [ ] T001 Create repo-native integration placeholders in integrations/telegram/README.md, integrations/openai/README.md, and integrations/google-drive/README.md
-- [ ] T002 [P] Create repo-native landing directories with README placeholders in knowledge/sources/telegram/README.md and knowledge/manifests/telegram/README.md
-- [ ] T003 [P] Add fixture scaffolding for Telegram and provider responses in tests/fixtures/telegram_voice_update.json, tests/fixtures/telegram_unsupported_update.json, and tests/fixtures/telegram_file_download.json
-- [ ] T004 [P] Update runtime overview for Telegram intake in apps/voice-gateway/README.md
+- [X] T001 Create repo-native integration placeholders in integrations/telegram/README.md, integrations/openai/README.md, and integrations/google-drive/README.md
+- [X] T002 [P] Create repo-native landing directories with README placeholders in knowledge/sources/telegram/README.md and knowledge/manifests/telegram/README.md
+- [X] T003 [P] Add fixture scaffolding for Telegram and provider responses in tests/fixtures/telegram_voice_update.json, tests/fixtures/telegram_unsupported_update.json, and tests/fixtures/telegram_file_download.json
+- [X] T004 [P] Update runtime overview for Telegram intake in apps/voice-gateway/README.md
 
 ---
 
@@ -22,16 +22,16 @@
 
 **Purpose**: Define the schemas, templates, contracts, and repo-level validation hooks that every Telegram intake story depends on.
 
-- [ ] T005 Define Telegram update schema in schemas/telegram-update.schema.json
-- [ ] T006 Define Telegram intake envelope schema in schemas/telegram-intake-envelope.schema.json
-- [ ] T007 Define dedicated landing-note schema in schemas/landing-note.schema.json
-- [ ] T008 Define landing-manifest schema in schemas/landing-manifest.schema.json
-- [ ] T009 [P] Add repo-native integration contracts in integrations/telegram/note-input-webhook.contract.yaml, integrations/openai/transcription.contract.yaml, and integrations/google-drive/telegram-landing.contract.yaml
-- [ ] T010 [P] Add feature contract tests in tests/contract/test_telegram_input_contracts.py
-- [ ] T011 [P] Extend integration contract coverage in tests/contract/test_integration_contracts.py for Telegram, OpenAI, and Google Drive landing contracts
-- [ ] T012 [P] Extend schema parsing coverage in tests/contract/test_schema_files.py for telegram-update, telegram-intake-envelope, landing-note, and landing-manifest schemas
-- [ ] T013 Create Telegram landing Markdown template in templates/notes/telegram-landing.md
-- [ ] T014 Update repo backbone validation for Telegram intake assets in apps/router/repo_lint.py and tests/integration/test_repo_backbone.py
+- [X] T005 Define Telegram update schema in schemas/telegram-update.schema.json
+- [X] T006 Define Telegram intake envelope schema in schemas/telegram-intake-envelope.schema.json
+- [X] T007 Define dedicated landing-note schema in schemas/landing-note.schema.json
+- [X] T008 Define landing-manifest schema in schemas/landing-manifest.schema.json
+- [X] T009 [P] Add repo-native integration contracts in integrations/telegram/note-input-webhook.contract.yaml, integrations/openai/transcription.contract.yaml, and integrations/google-drive/telegram-landing.contract.yaml
+- [X] T010 [P] Add feature contract tests in tests/contract/test_telegram_input_contracts.py
+- [X] T011 [P] Extend integration contract coverage in tests/contract/test_integration_contracts.py for Telegram, OpenAI, and Google Drive landing contracts
+- [X] T012 [P] Extend schema parsing coverage in tests/contract/test_schema_files.py for telegram-update, telegram-intake-envelope, landing-note, and landing-manifest schemas
+- [X] T013 Create Telegram landing Markdown template in templates/notes/telegram-landing.md
+- [X] T014 Update repo backbone validation for Telegram intake assets in apps/router/repo_lint.py and tests/integration/test_repo_backbone.py
 
 **Checkpoint**: The repo can validate the new Telegram intake schemas, contracts, landing-note template, and required repo-native paths before runtime code is added.
 
@@ -43,18 +43,18 @@
 
 **Independent Test**: A fixture Telegram voice update can hit the webhook, download audio, transcribe it, upload Markdown to Drive, optionally upload audio, and write linked repo-native landing artifacts with stable identifiers.
 
-- [ ] T015 [P] [US1] Add unit tests for Telegram update normalization in tests/unit/test_telegram_adapter.py
-- [ ] T016 [P] [US1] Add unit tests for transcription adapter behavior in tests/unit/test_transcription_adapter.py
-- [ ] T017 [P] [US1] Add unit tests for Google Drive upload behavior in tests/unit/test_google_drive_adapter.py
-- [ ] T018 [P] [US1] Add unit tests for landing record rendering in tests/unit/test_landing_record_writer.py
-- [ ] T019 [P] [US1] Add integration test for successful Telegram note intake in tests/integration/test_telegram_note_input.py
-- [ ] T020 [US1] Implement Telegram API adapter and intake envelope normalization in apps/workers/telegram_adapter.py
-- [ ] T021 [US1] Implement transcription adapter interface and OpenAI-backed transcription in apps/workers/transcription_adapter.py
-- [ ] T022 [US1] Implement Google Drive OAuth uploader for Markdown and optional audio in apps/workers/google_drive_adapter.py
-- [ ] T023 [US1] Implement repo-native landing record writer in apps/workers/landing_record_writer.py
-- [ ] T024 [US1] Implement success-path landing manifest writer in apps/workers/landing_manifest_writer.py
-- [ ] T025 [US1] Implement Telegram note-input orchestration in apps/voice_gateway/telegram_input_flow.py
-- [ ] T026 [US1] Implement FastAPI Telegram webhook endpoint in apps/voice_gateway/telegram_webhook.py
+- [X] T015 [P] [US1] Add unit tests for Telegram update normalization in tests/unit/test_telegram_adapter.py
+- [X] T016 [P] [US1] Add unit tests for transcription adapter behavior in tests/unit/test_transcription_adapter.py
+- [X] T017 [P] [US1] Add unit tests for Google Drive upload behavior in tests/unit/test_google_drive_adapter.py
+- [X] T018 [P] [US1] Add unit tests for landing record rendering in tests/unit/test_landing_record_writer.py
+- [X] T019 [P] [US1] Add integration test for successful Telegram note intake in tests/integration/test_telegram_note_input.py
+- [X] T020 [US1] Implement Telegram API adapter and intake envelope normalization in apps/workers/telegram_adapter.py
+- [X] T021 [US1] Implement transcription adapter interface and OpenAI-backed transcription in apps/workers/transcription_adapter.py
+- [X] T022 [US1] Implement Google Drive OAuth uploader for Markdown and optional audio in apps/workers/google_drive_adapter.py
+- [X] T023 [US1] Implement repo-native landing record writer in apps/workers/landing_record_writer.py
+- [X] T024 [US1] Implement success-path landing manifest writer in apps/workers/landing_manifest_writer.py
+- [X] T025 [US1] Implement Telegram note-input orchestration in apps/voice_gateway/telegram_input_flow.py
+- [X] T026 [US1] Implement FastAPI Telegram webhook endpoint in apps/voice_gateway/telegram_webhook.py
 
 **Checkpoint**: Telegram note input works end to end for the success path and leaves stable repo-native landing artifacts.
 
@@ -66,13 +66,13 @@
 
 **Independent Test**: A Drive-success and repo-write-failure scenario returns recoverable reconciliation data, and repeated Telegram delivery resolves idempotently instead of creating duplicates.
 
-- [ ] T027 [P] [US2] Add unit tests for manifest state transitions and reconciliation data in tests/unit/test_landing_manifest_writer.py
-- [ ] T028 [P] [US2] Add integration test for duplicate Telegram retry handling in tests/integration/test_telegram_note_retries.py
-- [ ] T029 [P] [US2] Add integration test for Drive-success repo-write-failure reconciliation in tests/integration/test_telegram_partial_failures.py
-- [ ] T030 [US2] Extend landing manifest reconciliation and retry tracking in apps/workers/landing_manifest_writer.py
-- [ ] T031 [US2] Extend Google Drive upload results with partial-success and recovery metadata in apps/workers/google_drive_adapter.py
-- [ ] T032 [US2] Extend Telegram input orchestration with idempotent retry handling and partial-success outcomes in apps/voice_gateway/telegram_input_flow.py
-- [ ] T033 [US2] Extend repo landing record rendering for partial, failed, and reconciled states in apps/workers/landing_record_writer.py
+- [X] T027 [P] [US2] Add unit tests for manifest state transitions and reconciliation data in tests/unit/test_landing_manifest_writer.py
+- [X] T028 [P] [US2] Add integration test for duplicate Telegram retry handling in tests/integration/test_telegram_note_retries.py
+- [X] T029 [P] [US2] Add integration test for Drive-success repo-write-failure reconciliation in tests/integration/test_telegram_partial_failures.py
+- [X] T030 [US2] Extend landing manifest reconciliation and retry tracking in apps/workers/landing_manifest_writer.py
+- [X] T031 [US2] Extend Google Drive upload results with partial-success and recovery metadata in apps/workers/google_drive_adapter.py
+- [X] T032 [US2] Extend Telegram input orchestration with idempotent retry handling and partial-success outcomes in apps/voice_gateway/telegram_input_flow.py
+- [X] T033 [US2] Extend repo landing record rendering for partial, failed, and reconciled states in apps/workers/landing_record_writer.py
 
 **Checkpoint**: The intake flow remains deterministic and recoverable under retries and partial failures.
 
@@ -84,11 +84,11 @@
 
 **Independent Test**: A sync-oriented module can enumerate pending landing manifests, determine import readiness from repo-native state, and explain why a note is blocked or ready.
 
-- [ ] T034 [P] [US3] Add unit tests for sync candidate enumeration in tests/unit/test_drive_sync.py
-- [ ] T035 [P] [US3] Add integration test for pending-import manifest scanning in tests/integration/test_drive_sync_scaffold.py
-- [ ] T036 [US3] Implement sync candidate enumeration and decision scaffolding in apps/workers/drive_sync.py
-- [ ] T037 [US3] Extend landing manifest writer to persist sync-import readiness metadata in apps/workers/landing_manifest_writer.py
-- [ ] T038 [US3] Add sync workflow operator guidance in knowledge/references/operations-runbook.md
+- [X] T034 [P] [US3] Add unit tests for sync candidate enumeration in tests/unit/test_drive_sync.py
+- [X] T035 [P] [US3] Add integration test for pending-import manifest scanning in tests/integration/test_drive_sync_scaffold.py
+- [X] T036 [US3] Implement sync candidate enumeration and decision scaffolding in apps/workers/drive_sync.py
+- [X] T037 [US3] Extend landing manifest writer to persist sync-import readiness metadata in apps/workers/landing_manifest_writer.py
+- [X] T038 [US3] Add sync workflow operator guidance in knowledge/references/operations-runbook.md
 
 **Checkpoint**: Repo-native manifests and sync scaffolding are sufficient to drive a future import workflow without hidden runtime state.
 
@@ -98,10 +98,10 @@
 
 **Purpose**: Finish operator guidance, verification coverage, and feature-level validation across all Telegram intake stories.
 
-- [ ] T039 [P] Update README.md and apps/voice-gateway/README.md with Telegram bot, webhook, OAuth token, and landing-zone setup guidance
-- [ ] T040 [P] Add feature quickstart walkthrough validation in specs/002-telegram-note-input-drive-landing/quickstart.md and tests/integration/test_repo_backbone.py
-- [ ] T041 Run quickstart validation from specs/002-telegram-note-input-drive-landing/quickstart.md
-- [ ] T042 Run repository verification for pyproject.toml and specs/002-telegram-note-input-drive-landing/tasks.md with python3 -m pytest and ruff check .
+- [X] T039 [P] Update README.md and apps/voice-gateway/README.md with Telegram bot, webhook, OAuth token, and landing-zone setup guidance
+- [X] T040 [P] Add feature quickstart walkthrough validation in specs/002-telegram-note-input-drive-landing/quickstart.md and tests/integration/test_repo_backbone.py
+- [X] T041 Run quickstart validation from specs/002-telegram-note-input-drive-landing/quickstart.md
+- [X] T042 Run repository verification for pyproject.toml and specs/002-telegram-note-input-drive-landing/tasks.md with python3 -m pytest and ruff check .
 
 ## Dependencies & Execution Order
 

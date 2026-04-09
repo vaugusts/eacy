@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/telegram-update.schema.json",
+  "title": "TelegramUpdate",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["update_id"],
+  "properties": {
+    "update_id": {"type": "integer"},
+    "message": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "message_id": {"type": "integer"},
+        "date": {"type": "integer"},
+        "voice": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["file_id", "file_unique_id"],
+          "properties": {
+            "file_id": {"type": "string"},
+            "file_unique_id": {"type": "string"},
+            "duration": {"type": "integer", "minimum": 0},
+            "mime_type": {"type": "string"},
+            "file_size": {"type": "integer", "minimum": 0}
+          }
+        },
+        "audio": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["file_id", "file_unique_id"],
+          "properties": {
+            "file_id": {"type": "string"},
+            "file_unique_id": {"type": "string"},
+            "duration": {"type": "integer", "minimum": 0},
+            "mime_type": {"type": "string"},
+            "file_size": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+version: 1
+integration: telegram
+contract_id: telegram-note-input-webhook-v1
+webhook:
+  method: POST
+  path: /telegram/webhook
+  auth:
+    mode: secret_token
+    header: X-Telegram-Bot-Api-Secret-Token
+request:
+  content_type: application/json
+  schema: schemas/telegram-update.schema.json
+  supported_message_kinds:
+    - voice
+    - audio
+response:
+  success_status: 200
+  body:
+    accepted: boolean
+    envelope_id: string
+notes:
+  - Unsupported updates must be ignored safely without landing writes.

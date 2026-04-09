@@ -31,6 +31,7 @@ class RepoBackboneTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("Repository backbone validation passed", result.stdout)
         self.assertIn("registry/commands.yaml", result.stdout)
+        self.assertIn("schemas/telegram-update.schema.json", result.stdout)
 
     def test_validate_repo_workflow_runs_on_pull_requests(self) -> None:
         workflow_path = ROOT / ".github/workflows/validate-repo.yml"
@@ -39,6 +40,14 @@ class RepoBackboneTests(unittest.TestCase):
         self.assertIn("pull_request:", workflow_text)
         self.assertIn("python3 -m unittest discover -s tests", workflow_text)
         self.assertIn("python3 -m apps.router.cli validate-repo", workflow_text)
+
+    def test_feature_quickstart_contains_validation_walkthrough(self) -> None:
+        quickstart = (ROOT / "specs/002-telegram-note-input-drive-landing/quickstart.md").read_text()
+
+        self.assertIn("python3 -m pytest tests/contract/test_telegram_input_contracts.py", quickstart)
+        self.assertIn("tests/integration/test_telegram_note_retries.py", quickstart)
+        self.assertIn("tests/integration/test_drive_sync_scaffold.py", quickstart)
+        self.assertIn("ruff check .", quickstart)
 
 
 if __name__ == "__main__":

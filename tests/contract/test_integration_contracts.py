@@ -29,6 +29,17 @@ class IntegrationContractTests(unittest.TestCase):
         self.assertEqual(contract["webhook"]["method"], "POST")
         self.assertIn("correlation_id", contract["request"]["fields"])
 
+
+    def test_telegram_openai_and_drive_landing_contracts_exist(self) -> None:
+        required_contracts = [
+            "integrations/telegram/note-input-webhook.contract.yaml",
+            "integrations/openai/transcription.contract.yaml",
+            "integrations/google-drive/telegram-landing.contract.yaml",
+        ]
+
+        for relative_path in required_contracts:
+            self.assertTrue((ROOT / relative_path).exists(), relative_path)
+
     def test_openclaw_contract_declares_router_tool(self) -> None:
         contract = yaml.safe_load((ROOT / "integrations/openclaw/voice-command-router.tool.yaml").read_text())
 

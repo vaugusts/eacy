@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "result": {
+    "file_id": "voice-file-123",
+    "file_unique_id": "voice-uniq-123",
+    "file_size": 42000,
+    "file_path": "voice/file_123.oga"
+  }
+}
