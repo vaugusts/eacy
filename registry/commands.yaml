@@ -1,0 +1,173 @@
+version: 1
+commands:
+  - id: note.capture.inbox
+    description: Create a raw inbox note from voice capture.
+    trigger_phrases:
+      - capture note
+      - save to inbox
+      - new inbox note
+    mode_support: [capture, combined]
+    input_schema_ref: specs/001-voice-kms-automation/contracts/voice-envelope.yaml#/components/schemas/CaptureRequest
+    allowed_parameters:
+      - title
+      - tags
+      - transcript
+      - source_device
+    executor:
+      type: local_cli
+      target: note_writer.write_inbox_note
+      timeout_seconds: 10
+    risk_level: low
+    confirmation_policy: none
+    audit:
+      log_inputs: true
+      log_outputs: true
+      retention_days: 365
+    output_contract:
+      success_schema_ref: schemas/note.schema.json
+      failure_schema_ref: schemas/audit-entry.schema.json
+    allowed_agent_scopes:
+      - note-curator
+      - repo-maintainer
+
+  - id: note.append.daily
+    description: Append structured content to the current daily note.
+    trigger_phrases:
+      - append daily note
+      - add to today
+      - add to daily log
+    mode_support: [capture, combined]
+    input_schema_ref: specs/001-voice-kms-automation/contracts/voice-envelope.yaml#/components/schemas/CaptureRequest
+    allowed_parameters:
+      - transcript
+      - section
+      - tags
+      - topic_refs
+    executor:
+      type: local_cli
+      target: daily_writer.append_to_daily_note
+      timeout_seconds: 10
+    risk_level: low
+    confirmation_policy: none
+    audit:
+      log_inputs: true
+      log_outputs: true
+      retention_days: 365
+    output_contract:
+      success_schema_ref: schemas/note.schema.json
+      failure_schema_ref: schemas/audit-entry.schema.json
+    allowed_agent_scopes:
+      - note-curator
+      - repo-maintainer
+
+  - id: knowledge.digest.daily
+    description: Build a daily digest note from captured and curated material.
+    trigger_phrases:
+      - build daily digest
+      - refresh daily digest
+      - summarize today
+    mode_support: [command, combined]
+    input_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandRequest
+    allowed_parameters:
+      - date
+      - include_topics
+      - dry_run
+    executor:
+      type: github_action
+      target: .github/workflows/daily-digest.yml
+      timeout_seconds: 300
+    risk_level: low
+    confirmation_policy: none
+    audit:
+      log_inputs: true
+      log_outputs: true
+      retention_days: 365
+    output_contract:
+      success_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandResult
+      failure_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/FailureResult
+    allowed_agent_scopes:
+      - digest-operator
+      - repo-maintainer
+
+  - id: assets.sync.drive
+    description: Synchronize or refresh Google Drive asset indexes.
+    trigger_phrases:
+      - sync drive assets
+      - refresh drive index
+      - index new assets
+    mode_support: [command, combined]
+    input_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandRequest
+    allowed_parameters:
+      - folder_id
+      - asset_type
+      - dry_run
+    executor:
+      type: n8n_webhook
+      target: integrations/n8n/daily-digest.contract.yaml
+      timeout_seconds: 180
+    risk_level: medium
+    confirmation_policy: confirm_voice_medium
+    audit:
+      log_inputs: true
+      log_outputs: true
+      retention_days: 365
+    output_contract:
+      success_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandResult
+      failure_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/FailureResult
+    allowed_agent_scopes:
+      - asset-operator
+
+  - id: topics.pack.generate
+    description: Generate a topic source pack for synthesis or NotebookLM.
+    trigger_phrases:
+      - generate topic pack
+      - build source pack
+      - refresh topic pack
+    mode_support: [command, combined]
+    input_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandRequest
+    allowed_parameters:
+      - topic_slug
+      - source_limit
+      - destination
+    executor:
+      type: local_cli
+      target: topic_pack.generate
+      timeout_seconds: 60
+    risk_level: medium
+    confirmation_policy: confirm_voice_medium
+    audit:
+      log_inputs: true
+      log_outputs: true
+      retention_days: 365
+    output_contract:
+      success_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandResult
+      failure_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/FailureResult
+    allowed_agent_scopes:
+      - topic-pack-operator
+
+  - id: docs.publish.site
+    description: Publish approved documentation outputs to a public target.
+    trigger_phrases:
+      - publish docs
+      - deploy docs
+      - push docs live
+    mode_support: [command]
+    input_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandRequest
+    allowed_parameters:
+      - target_environment
+      - dry_run
+    executor:
+      type: github_action
+      target: .github/workflows/publish-docs.yml
+      timeout_seconds: 600
+    risk_level: high
+    confirmation_policy: confirm_voice_high
+    audit:
+      log_inputs: true
+      log_outputs: true
+      retention_days: 365
+    output_contract:
+      success_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/CommandResult
+      failure_schema_ref: specs/001-voice-kms-automation/contracts/command-execution.yaml#/components/schemas/FailureResult
+    allowed_agent_scopes:
+      - release-manager

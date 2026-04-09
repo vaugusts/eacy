@@ -1,0 +1,23 @@
+version: 1
+targets:
+  - id: local-dev
+    description: Local-first runtime for repository-backed experimentation
+    runtimes:
+      - apps/voice-gateway
+      - apps/router
+      - apps/workers
+    triggers:
+      - local_cli
+      - workflow_dispatch
+    notes:
+      - Uses repo-native YAML and Markdown definitions directly
+
+  - id: github-actions
+    description: CI-hosted execution target for approved background workflows
+    runtimes:
+      - .github/workflows/daily-digest.yml
+    triggers:
+      - workflow_dispatch
+      - repository_dispatch
+    notes:
+      - Intended for governed automations that benefit from remote execution

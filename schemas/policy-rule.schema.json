@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/policy-rule.schema.json",
+  "title": "PolicyDefinitionDocument",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["policy_version", "defaults", "risk_model", "rules", "audit"],
+  "properties": {
+    "policy_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unknown_command", "unknown_executor", "audit_log_path"],
+      "properties": {
+        "unknown_command": {
+          "type": "string",
+          "enum": ["deny"]
+        },
+        "unknown_executor": {
+          "type": "string",
+          "enum": ["deny"]
+        },
+        "audit_log_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "risk_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["low", "medium", "high", "blocked"],
+      "properties": {
+        "low": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["effect", "allow_executors"],
+          "properties": {
+            "effect": {
+              "type": "string",
+              "enum": ["allow", "confirm", "deny"]
+            },
+            "allow_executors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "medium": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["effect", "allow_executors"],
+          "properties": {
+            "effect": {
+              "type": "string",
+              "enum": ["allow", "confirm", "deny"]
+            },
+            "allow_executors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "high": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["effect", "allow_executors"],
+          "properties": {
+            "effect": {
+              "type": "string",
+              "enum": ["allow", "confirm", "deny"]
+            },
+            "allow_executors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "blocked": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["effect", "allow_executors"],
+          "properties": {
+            "effect": {
+              "type": "string",
+              "enum": ["allow", "confirm", "deny"]
+            },
+            "allow_executors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rule_id", "applies_to", "effect"],
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "applies_to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "effect": {
+            "type": "string",
+            "enum": ["allow", "confirm", "deny"]
+          },
+          "conditions": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "channels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "require_allowed_parameters": {
+                "type": "boolean"
+              },
+              "allowed_agent_scopes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "require_correlation_id": {
+                "type": "boolean"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_fields", "redact_parameters"],
+      "properties": {
+        "required_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redact_parameters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

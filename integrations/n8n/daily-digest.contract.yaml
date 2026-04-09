@@ -1,0 +1,27 @@
+version: 1
+integration: n8n
+contract_id: n8n-drive-sync-v1
+supported_commands:
+  - assets.sync.drive
+webhook:
+  method: POST
+  path: /webhook/eacy/assets-sync
+request:
+  content_type: application/json
+  fields:
+    correlation_id: string
+    command_id: string
+    actor: string
+    parameters: object
+response:
+  success_status: 202
+  body:
+    run_id: string
+    accepted: boolean
+    status_url: string
+audit_mapping:
+  accepted_status: allowed
+  failed_status: failed
+notes:
+  - n8n remains an optional execution backend.
+  - The repository still owns command id, input shape, and output mapping.

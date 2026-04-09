@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/audit-log-entry.schema.json",
+  "title": "AuditLogEntry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "audit_id",
+    "occurred_at",
+    "actor",
+    "source_mode",
+    "command_id",
+    "risk_level",
+    "decision",
+    "executor",
+    "repo_ref",
+    "status",
+    "correlation_id"
+  ],
+  "properties": {
+    "audit_id": { "type": "string" },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor": { "type": "string" },
+    "source_mode": {
+      "type": "string",
+      "enum": ["capture", "command", "combined"]
+    },
+    "command_id": { "type": "string" },
+    "risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "blocked"]
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["allowed", "confirmed", "blocked", "failed", "succeeded"]
+    },
+    "executor": {
+      "type": "object",
+      "required": ["type", "target"],
+      "properties": {
+        "type": { "type": "string" },
+        "target": { "type": "string" }
+      }
+    },
+    "repo_ref": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["evaluated", "executed", "failed", "blocked"]
+    },
+    "correlation_id": { "type": "string" },
+    "output_summary": { "type": "string" }
+  }
+}

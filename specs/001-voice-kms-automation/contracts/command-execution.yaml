@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  title: EACY Command Execution Contract
+  version: 1.0.0
+components:
+  schemas:
+    CommandRequest:
+      type: object
+      required:
+        - correlation_id
+        - command_id
+        - actor
+        - parameters
+      properties:
+        correlation_id:
+          type: string
+        command_id:
+          type: string
+        actor:
+          type: string
+        parameters:
+          type: object
+        dry_run:
+          type: boolean
+    CommandResult:
+      type: object
+      required:
+        - correlation_id
+        - command_id
+        - status
+      properties:
+        correlation_id:
+          type: string
+        command_id:
+          type: string
+        status:
+          type: string
+          enum: [accepted, completed, blocked, failed]
+        output_summary:
+          type: string
+        artifact_refs:
+          type: array
+          items:
+            type: string
+    FailureResult:
+      type: object
+      required:
+        - correlation_id
+        - command_id
+        - status
+        - error_message
+      properties:
+        correlation_id:
+          type: string
+        command_id:
+          type: string
+        status:
+          type: string
+          enum: [blocked, failed]
+        error_message:
+          type: string

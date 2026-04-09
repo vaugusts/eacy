@@ -31,7 +31,18 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Evaluate the plan explicitly against the current constitution. The generated
+plan must state PASS/FAIL for each principle that applies and note any required
+exception record in `policies/exceptions/`.
+
+Minimum checks:
+
+- Repository-native durability of behavior, contracts, prompts, and tests
+- Git-first change control and PR reviewability
+- Markdown-first knowledge handling where knowledge artifacts are involved
+- Governed voice-to-action flow for any executable behavior
+- Policy, confirmation, audit, and AI-agent authorization impact
+- Spec-driven incremental scope discipline
 
 ## Project Structure
 
@@ -48,47 +59,25 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+apps/
+├── router/
+├── voice-gateway/
+└── workers/
 
+automation/
+integrations/
+knowledge/
+policies/
+prompts/
+registry/
+schemas/
+templates/
 tests/
-├── contract/
-├── integration/
-└── unit/
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+docs/
+deploy/
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
