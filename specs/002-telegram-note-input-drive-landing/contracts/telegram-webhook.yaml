@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: EACY Telegram Note Intake Contract
+  version: 1.0.0
+components:
+  schemas:
+    TelegramVoiceUpdate:
+      type: object
+      required:
+        - update_id
+        - message
+      properties:
+        update_id:
+          type: integer
+        message:
+          type: object
+          required:
+            - message_id
+            - date
+            - chat
+          properties:
+            message_id:
+              type: integer
+            date:
+              type: integer
+            chat:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+            from:
+              type: object
+              properties:
+                id:
+                  type: integer
+                username:
+                  type: string
+            caption:
+              type: string
+            voice:
+              $ref: "#/components/schemas/TelegramVoiceDescriptor"
+            audio:
+              $ref: "#/components/schemas/TelegramAudioDescriptor"
+    TelegramVoiceDescriptor:
+      type: object
+      required:
+        - file_id
+        - file_unique_id
+      properties:
+        file_id:
+          type: string
+        file_unique_id:
+          type: string
+        duration:
+          type: integer
+        mime_type:
+          type: string
+        file_size:
+          type: integer
+    TelegramAudioDescriptor:
+      type: object
+      required:
+        - file_id
+        - file_unique_id
+      properties:
+        file_id:
+          type: string
+        file_unique_id:
+          type: string
+        duration:
+          type: integer
+        mime_type:
+          type: string
+        file_name:
+          type: string
+        file_size:
+          type: integer
+    TelegramIntakeEnvelope:
+      type: object
+      required:
+        - intake_id
+        - correlation_id
+        - telegram_update_id
+        - telegram_chat_id
+        - telegram_message_id
+        - message_type
+        - telegram_file_id
+        - telegram_file_unique_id
+        - received_at
+        - retry_key
+      properties:
+        intake_id:
+          type: string
+        correlation_id:
+          type: string
+        telegram_update_id:
+          type: integer
+        telegram_chat_id:
+          type: integer
+        telegram_message_id:
+          type: integer
+        message_type:
+          type: string
+          enum: [voice, audio]
+        telegram_file_id:
+          type: string
+        telegram_file_unique_id:
+          type: string
+        received_at:
+          type: string
+          format: date-time
+        sent_at:
+          type: string
+          format: date-time
+        language_hint:
+          type: string
+        actor_label:
+          type: string
+        retry_key:
+          type: string
+    TelegramWebhookResult:
+      type: object
+      required:
+        - status
+        - telegram_update_id
+      properties:
+        status:
+          type: string
+          enum: [accepted, ignored, rejected, partial]
+        telegram_update_id:
+          type: integer
+        intake_id:
+          type: string
+        correlation_id:
+          type: string
+        reason:
+          type: string
