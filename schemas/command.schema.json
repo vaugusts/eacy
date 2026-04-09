@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/command.schema.json",
+  "title": "CommandDefinition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "description",
+    "trigger_phrases",
+    "mode_support",
+    "input_schema_ref",
+    "allowed_parameters",
+    "executor",
+    "risk_level",
+    "confirmation_policy",
+    "audit",
+    "output_contract"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "trigger_phrases": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "mode_support": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["capture", "command", "combined"]
+      },
+      "uniqueItems": true
+    },
+    "input_schema_ref": {
+      "type": "string"
+    },
+    "allowed_parameters": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "executor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "target", "timeout_seconds"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "local_cli",
+            "github_action",
+            "n8n_webhook",
+            "webhook",
+            "clawbot_tool"
+          ]
+        },
+        "target": { "type": "string" },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "blocked"]
+    },
+    "confirmation_policy": {
+      "type": "string"
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["log_inputs", "log_outputs", "retention_days"],
+      "properties": {
+        "log_inputs": { "type": "boolean" },
+        "log_outputs": { "type": "boolean" },
+        "retention_days": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["success_schema_ref", "failure_schema_ref"],
+      "properties": {
+        "success_schema_ref": { "type": "string" },
+        "failure_schema_ref": { "type": "string" }
+      }
+    }
+  }
+}

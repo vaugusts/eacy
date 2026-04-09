@@ -1,0 +1,26 @@
+name: Publish Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: "Deployment target"
+        required: true
+        type: string
+      dry_run:
+        description: "Skip side effects"
+        required: false
+        default: "true"
+        type: string
+
+jobs:
+  publish-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Report requested publish target
+        run: |
+          echo "Requested target: ${{ inputs.target_environment }}"
+          echo "Dry run: ${{ inputs.dry_run }}"

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/audit-entry.schema.json",
+  "title": "AuditEntry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "audit_id",
+    "occurred_at",
+    "actor",
+    "intent",
+    "approved_command",
+    "target",
+    "outcome",
+    "repo_revision",
+    "risk_level",
+    "correlation_id"
+  ],
+  "properties": {
+    "audit_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "approved_command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome": {
+      "type": "string",
+      "enum": ["allowed", "confirmed", "blocked", "failed", "succeeded"]
+    },
+    "repo_revision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "blocked"]
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

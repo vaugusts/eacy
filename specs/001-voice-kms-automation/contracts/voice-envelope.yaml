@@ -1,0 +1,51 @@
+openapi: 3.1.0
+info:
+  title: EACY Voice Envelope Contract
+  version: 1.0.0
+components:
+  schemas:
+    VoiceEnvelope:
+      type: object
+      required:
+        - envelope_id
+        - mode
+        - transcript
+        - captured_at
+      properties:
+        envelope_id:
+          type: string
+        mode:
+          type: string
+          enum: [capture, command, combined]
+        transcript:
+          type: string
+        language:
+          type: string
+        captured_at:
+          type: string
+          format: date-time
+        source_device:
+          type: string
+        context:
+          type: object
+        parameters:
+          type: object
+    CaptureRequest:
+      allOf:
+        - $ref: "#/components/schemas/VoiceEnvelope"
+        - type: object
+          properties:
+            target_note_type:
+              type: string
+              enum: [inbox, daily, topic, project, decision]
+            target_path:
+              type: string
+    CombinedRequest:
+      allOf:
+        - $ref: "#/components/schemas/VoiceEnvelope"
+        - type: object
+          required:
+            - command_id
+          properties:
+            command_id:
+              type: string

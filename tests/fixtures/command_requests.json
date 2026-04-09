@@ -1,0 +1,31 @@
+{
+  "daily_digest": {
+    "transcript": "build daily digest",
+    "actor": {
+      "actor_id": "leo",
+      "actor_type": "human",
+      "scopes": []
+    },
+    "parameters": {
+      "date": "2026-04-09",
+      "dry_run": true
+    },
+    "channel": "voice",
+    "correlation_id": "cmd-001",
+    "repo_revision": "abc123"
+  },
+  "topic_pack_denied_agent": {
+    "transcript": "generate topic pack",
+    "actor": {
+      "actor_id": "codex",
+      "actor_type": "agent",
+      "scopes": ["note-curator"]
+    },
+    "parameters": {
+      "topic_slug": "voice-architecture"
+    },
+    "channel": "voice",
+    "correlation_id": "cmd-002",
+    "repo_revision": "abc123"
+  }
+}

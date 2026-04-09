@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/note.schema.json",
+  "title": "KnowledgeNoteFrontmatter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "note_type",
+    "title",
+    "status",
+    "created_at",
+    "updated_at",
+    "tags"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "note_type": {
+      "type": "string",
+      "enum": [
+        "inbox",
+        "daily",
+        "weekly",
+        "topic",
+        "project",
+        "entity",
+        "decision",
+        "reference",
+        "asset_index",
+        "prompt",
+        "runbook"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["raw", "curated", "active", "archived"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_type", "ref", "captured_at"],
+        "properties": {
+          "source_type": {
+            "type": "string",
+            "enum": ["voice", "drive", "web", "manual", "automation"]
+          },
+          "ref": {
+            "type": "string"
+          },
+          "captured_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "project_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "entity_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "decision_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "capture_mode": {
+      "type": "string",
+      "enum": ["capture", "command", "combined"]
+    },
+    "command_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

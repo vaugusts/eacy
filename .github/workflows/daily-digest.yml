@@ -1,0 +1,44 @@
+name: Daily Digest Starter
+
+on:
+  workflow_dispatch:
+    inputs:
+      command_id:
+        description: Approved registry command identifier
+        required: true
+        default: knowledge.digest.daily
+      correlation_id:
+        description: Shared correlation id for note and audit linkage
+        required: true
+      date:
+        description: Digest date in YYYY-MM-DD format
+        required: true
+      dry_run:
+        description: Skip side effects and emit a simulated result
+        required: false
+        default: "true"
+
+jobs:
+  daily-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show contract inputs
+        run: |
+          echo "command_id=${{ inputs.command_id }}"
+          echo "correlation_id=${{ inputs.correlation_id }}"
+          echo "date=${{ inputs.date }}"
+          echo "dry_run=${{ inputs.dry_run }}"
+
+      - name: Verify repo-native control files exist
+        run: |
+          test -f registry/commands.yaml
+          test -f policies/execution-policy.yaml
+          test -f automation/workflows/daily-topic-aggregation.yaml
+
+      - name: Starter dispatch placeholder
+        run: |
+          echo "This starter workflow is intentionally thin."
+          echo "The future router will dispatch only approved commands here."

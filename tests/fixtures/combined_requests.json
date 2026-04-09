@@ -1,0 +1,56 @@
+{
+  "denied_agent": {
+    "envelope_id": "cmb-001",
+    "mode": "combined",
+    "transcript": "Capture this topic note and try to generate a topic pack.",
+    "language": "en-US",
+    "captured_at": "2026-04-09T12:10:00Z",
+    "source_device": "desktop-mic",
+    "target_note_type": "inbox",
+    "context": {
+      "topic_refs": ["voice-architecture"],
+      "project_refs": ["eacy"]
+    },
+    "parameters": {
+      "title": "Combined mode denied command",
+      "tags": ["combined", "test"]
+    },
+    "command_id": "topics.pack.generate",
+    "command_parameters": {
+      "topic_slug": "voice-architecture"
+    },
+    "actor": {
+      "actor_id": "codex",
+      "actor_type": "agent",
+      "scopes": ["note-curator"]
+    },
+    "repo_revision": "abc123"
+  },
+  "allowed_digest": {
+    "envelope_id": "cmb-002",
+    "mode": "combined",
+    "transcript": "Capture this update and refresh the digest.",
+    "language": "en-US",
+    "captured_at": "2026-04-09T12:20:00Z",
+    "source_device": "desktop-mic",
+    "target_note_type": "daily",
+    "context": {
+      "topic_refs": ["voice-automation"],
+      "project_refs": ["eacy"]
+    },
+    "parameters": {
+      "tags": ["combined", "digest"]
+    },
+    "command_id": "knowledge.digest.daily",
+    "command_parameters": {
+      "date": "2026-04-09",
+      "dry_run": true
+    },
+    "actor": {
+      "actor_id": "leo",
+      "actor_type": "human",
+      "scopes": []
+    },
+    "repo_revision": "abc123"
+  }
+}

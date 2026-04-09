@@ -1,0 +1,17 @@
+{
+  "envelope_id": "env-001",
+  "mode": "capture",
+  "transcript": "Remember to review the voice architecture topic and prepare a summary.",
+  "language": "en-US",
+  "captured_at": "2026-04-09T12:00:00Z",
+  "source_device": "desktop-mic",
+  "context": {
+    "topic_refs": ["voice-architecture"],
+    "project_refs": ["eacy"]
+  },
+  "parameters": {
+    "title": "Voice architecture follow-up",
+    "tags": ["architecture", "follow-up"]
+  },
+  "target_note_type": "inbox"
+}

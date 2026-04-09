@@ -1,0 +1,46 @@
+version: 1
+workflow:
+  id: daily-topic-aggregation
+  description: Aggregate daily captures into curated daily digests and topic updates.
+  trigger:
+    type: command
+    command_ids:
+      - knowledge.digest.daily
+      - topics.pack.generate
+  inputs:
+    date:
+      type: string
+      required: true
+    topic_slug:
+      type: string
+      required: false
+    include_raw_inbox:
+      type: boolean
+      required: false
+      default: true
+  steps:
+    - id: collect-daily-notes
+      action: query_markdown
+      uses: knowledge/daily/*.md
+    - id: collect-linked-inbox
+      action: query_markdown
+      uses: knowledge/inbox/*.md
+    - id: resolve-topic-links
+      action: derive_topics
+      uses: registry/commands.yaml
+    - id: write-daily-digest
+      action: write_markdown
+      uses: knowledge/daily/{{date}}.md
+    - id: update-topic-notes
+      action: write_markdown
+      uses: knowledge/topics/{{topic_slug}}.md
+  outputs:
+    daily_digest_note: knowledge/daily/{{date}}.md
+    updated_topic_notes: knowledge/topics/
+    audit_event: logs/audit/executions.jsonl
+  observability:
+    audit: true
+    metrics:
+      - notes_scanned
+      - topics_updated
+      - assets_linked

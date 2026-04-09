@@ -84,11 +84,11 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: System MUST [specific capability, expressed as repo-visible behavior]
+- **FR-002**: System MUST [specific capability, with clear user or operator value]
+- **FR-003**: System MUST [execution, data, or policy requirement]
+- **FR-004**: System MUST [traceability, validation, or governance requirement]
+- **FR-005**: System MUST [safety, audit, or lifecycle requirement]
 
 *Example of marking unclear requirements:*
 
@@ -100,6 +100,13 @@
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
 
+## Constitution Alignment *(mandatory)*
+
+- Describe how the feature preserves the repo as the durable control plane.
+- Describe how change remains reviewable through Git-based workflows.
+- Describe any policy, audit, confirmation, or AI-agent authorization impact.
+- If an exception is required, reference the dated record in `policies/exceptions/`.
+
 ## Success Criteria *(mandatory)*
 
 <!--
@@ -110,9 +117,9 @@
 ### Measurable Outcomes
 
 - **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+- **SC-002**: [Validation or contract metric, e.g., "Every executable action carries complete typed metadata"]
+- **SC-003**: [Performance or latency metric, if applicable]
+- **SC-004**: [Auditability or operator-success metric]
 
 ## Assumptions
 

@@ -1,0 +1,43 @@
+version: 1
+provider: openclaw
+tool:
+  id: voice_command_router
+  name: Voice Command Router
+  description: Resolve approved EACY voice commands into governed repo-native actions.
+  input:
+    type: object
+    required:
+      - transcript
+      - mode
+      - correlation_id
+    properties:
+      transcript:
+        type: string
+      mode:
+        type: string
+        enum: [capture, command, combined]
+      correlation_id:
+        type: string
+      parameters:
+        type: object
+  output:
+    type: object
+    required:
+      - command_id
+      - decision
+      - audit_required
+    properties:
+      command_id:
+        type: string
+      decision:
+        type: string
+        enum: [allow, confirm, deny]
+      audit_required:
+        type: boolean
+      suggested_executor:
+        type: string
+  policies_required:
+    - registry/commands.yaml
+    - policies/execution-policy.yaml
+    - schemas/command.schema.json
+    - schemas/audit-log-entry.schema.json

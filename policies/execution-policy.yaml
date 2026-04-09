@@ -1,0 +1,73 @@
+policy_version: 1.0.0
+defaults:
+  unknown_command: deny
+  unknown_executor: deny
+  audit_log_path: logs/audit/executions.jsonl
+
+risk_model:
+  low:
+    effect: allow
+    allow_executors: [local_cli, github_action]
+  medium:
+    effect: confirm
+    allow_executors: [local_cli, github_action, n8n_webhook, clawbot_tool]
+  high:
+    effect: confirm
+    allow_executors: [github_action]
+  blocked:
+    effect: deny
+    allow_executors: []
+
+rules:
+  - rule_id: deny-free-form-shell
+    applies_to: executor.type=shell
+    effect: deny
+    conditions:
+      reason: shell execution is never exposed to voice input
+
+  - rule_id: confirm-medium-risk-voice
+    applies_to: risk_level=medium
+    effect: confirm
+    conditions:
+      channels: [voice]
+
+  - rule_id: confirm-high-risk-any-channel
+    applies_to: risk_level=high
+    effect: confirm
+    conditions:
+      channels: [voice, cli, api]
+
+  - rule_id: deny-unknown-parameter
+    applies_to: any
+    effect: deny
+    conditions:
+      require_allowed_parameters: true
+
+  - rule_id: enforce-agent-scopes
+    applies_to: actor_type=agent
+    effect: deny
+    conditions:
+      allowed_agent_scopes: []
+
+  - rule_id: require-correlation-id
+    applies_to: any
+    effect: allow
+    conditions:
+      require_correlation_id: true
+
+audit:
+  required_fields:
+    - audit_id
+    - occurred_at
+    - actor
+    - intent
+    - approved_command
+    - target
+    - outcome
+    - repo_revision
+    - risk_level
+    - correlation_id
+  redact_parameters:
+    - api_key
+    - access_token
+    - refresh_token

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eacy.local/schemas/asset-index.schema.json",
+  "title": "AssetRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "asset_id",
+    "title",
+    "asset_type",
+    "storage_system",
+    "storage_ref",
+    "summary",
+    "tags"
+  ],
+  "properties": {
+    "asset_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": ["pdf", "audio", "image", "slides", "docx", "other"]
+    },
+    "storage_system": {
+      "type": "string",
+      "enum": ["google_drive", "local", "github_release"]
+    },
+    "storage_ref": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "linked_notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_ref": {
+      "type": "string"
+    }
+  }
+}
